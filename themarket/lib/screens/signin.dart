@@ -238,7 +238,7 @@ class _SignInState extends State<SignIn> {
                         },
                     child: Image.asset(
                       'assets/google.png',
-                      height: 50,
+                      height: 70,
                     ),
                     style: btnStyle,
                   ),
@@ -246,7 +246,7 @@ class _SignInState extends State<SignIn> {
                     onPressed: () {},
                     child: Image.asset(
                       'assets/facebook.png',
-                      height: 50,
+                      height: 70,
                     ),
                     style: btnStyle,
                   ),
@@ -254,7 +254,7 @@ class _SignInState extends State<SignIn> {
                     onPressed: () {},
                     child: Image.asset(
                       'assets/twitter.png',
-                      height: 50,
+                      height: 70,
                     ),
                     style: btnStyle,
                   ),

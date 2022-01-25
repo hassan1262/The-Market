@@ -38,12 +38,12 @@ class _CartItemState extends State<CartItem> {
             //crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                width: MediaQuery.of(context).size.width / 3,
-                height: 200,
+                width: MediaQuery.of(context).size.width / 2.5,
+                height: 180,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/${this.widget.image}'),
-                    fit: BoxFit.fill,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
@@ -51,17 +51,17 @@ class _CartItemState extends State<CartItem> {
           ),
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Container(
-                      width: 150.0,
+                      width: 100.0,
                       child: Text(
                         '${this.widget.name}',
                         style: TextStyle(
-                          fontSize: fontSizeM,
+                          fontSize: fontSizeH,
                         ),
                       ),
                     ),
@@ -87,7 +87,7 @@ class _CartItemState extends State<CartItem> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(vertical: 10.0),
+                  padding: EdgeInsets.symmetric(vertical: 15.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [

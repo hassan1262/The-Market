@@ -7,55 +7,92 @@ class SideBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: Color(0xFFFFFCEB),
       child: ListView(
         // Important: Remove any padding from the ListView.
-        padding: EdgeInsets.zero,
+        padding: EdgeInsets.all(0),
         children: [
           DrawerHeader(
             decoration: BoxDecoration(
-              color: offWhite,
+              color: Color(0xFFFFC300),
               image: DecorationImage(
                 image: AssetImage('assets/logo.png'),
-                fit: BoxFit.scaleDown,
+                fit: BoxFit.cover,
               ),
             ),
             child: null,
           ),
-          ListTile(
-            title: const Text('Home'),
-            onTap: () {
-              Navigator.pushNamed(context, '/Home');
-            },
+          Ink(
+            child: ListTile(
+              title: const Text('Home',style: TextStyle(
+                  color: Color(0xFFFFFCEB),
+                ),),
+              onTap: () {
+                Navigator.pushNamed(context, '/Home');
+              },
+            ),
+            color: Color(0xFF000814),
           ),
-          ListTile(
-            title: const Text('Edit Profile'),
-            onTap: () {
-              Navigator.pushNamed(context, '/editprofile');
-            },
+          Ink(
+            child: ListTile(
+              title: const Text(
+                'View Profile',style: TextStyle(
+                  color: Color(0xFFFFFCEB),
+                  
+                ),
+              ),
+              onTap: () {
+                Navigator.pushNamed(context, '/editprofile');
+              },
+            ),
+            color: Color(0xFF000814),
           ),
-          ListTile(
-            title: const Text('Cart'),
-            onTap: () {
-              Navigator.pushNamed(context, '/cart');
-            },
+          Ink(
+            child: ListTile(
+              title: const Text(
+                'Cart',
+                style: TextStyle(
+                  color: Color(0xFFFFFCEB),
+                ),
+              ),
+              onTap: () {
+                Navigator.pushNamed(context, '/cart');
+              },
+            ),
+            color: Color(0xFF000814),
           ),
-          ListTile(
-            title: const Text('About'),
-            onTap: () {
-              Navigator.pushNamed(context, '/about');
-            },
+          Ink(
+            child: ListTile(
+              title: const Text('About Us',style: TextStyle(
+                  color: Color(0xFFFFFCEB),
+                ),),
+              onTap: () {
+                Navigator.pushNamed(context, '/about');
+              },
+            ),
+            color: Color(0xFF000814),
           ),
-          ListTile(
-            title: const Text('Help'),
-            onTap: () {
-              Navigator.pushNamed(context, '/help');
-            },
+          Ink(
+            child: ListTile(
+              title: const Text('FAQs',style: TextStyle(
+                  color: Color(0xFFFFFCEB),
+                ),),
+              onTap: () {
+                Navigator.pushNamed(context, '/faq');
+              },
+            ),
+            color: Color(0xFF000814),
           ),
-          ListTile(
-            title: const Text('Favourite'),
-            onTap: () {
-              Navigator.pushNamed(context, '/fav');
-            },
+          Ink(
+            child: ListTile(
+              title: const Text('Favorite',style: TextStyle(
+                  color: Color(0xFFFFFCEB),
+                ),),
+              onTap: () {
+                Navigator.pushNamed(context, '/fav');
+              },
+            ),
+            color: Color(0xFF000814),
           ),
         ],
       ),

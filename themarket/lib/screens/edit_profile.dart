@@ -21,13 +21,13 @@ class _EditProfileState extends State<EditProfile> {
             children: [
               Container(
                 width: 150.0,
-                height: 180.0,
+                height: 260.0,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(
                       'assets/logo.png',
                     ),
-                    fit: BoxFit.fill,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
@@ -104,7 +104,7 @@ class _EditProfileState extends State<EditProfile> {
                       ),
                     ),
                     const SizedBox(
-                      height: 5.0,
+                      height: 20.0,
                     ),
                     ElevatedButton(
                       onPressed: () {},
@@ -117,7 +117,7 @@ class _EditProfileState extends State<EditProfile> {
                       style: ElevatedButton.styleFrom(
                         primary: green,
                         padding: EdgeInsets.symmetric(
-                            horizontal: 35.0, vertical: 15.0),
+                            horizontal: 55.0, vertical: 15.0),
                       ),
                     ),
                   ],

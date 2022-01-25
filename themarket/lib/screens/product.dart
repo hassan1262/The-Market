@@ -4,7 +4,6 @@ import 'package:super_market_application/providers/product_provider.dart';
 import 'package:super_market_application/shared/app_bar.dart';
 import 'package:super_market_application/shared/constants.dart';
 import 'package:super_market_application/shared/product_list.dart';
-import 'package:super_market_application/shared/search_bar.dart';
 import 'package:super_market_application/shared/side_menu_bar.dart';
 
 // ignore: must_be_immutable
@@ -28,7 +27,6 @@ class ProductView extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
             children: [
-              SearchBar(),
               const SizedBox(
                 height: 10.0,
               ),

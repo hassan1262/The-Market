@@ -31,22 +31,22 @@ class _CardsState extends State<Cards> {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage('assets/${this.widget.image}'),
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
             Positioned(
-              bottom: 1,
+              bottom: 0,
               child: Container(
-                color: Colors.black45,
+                color: Color(0xFF001D3D),
                 width: MediaQuery.of(context).size.width,
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(25.0),
                   child: Text(
                     '${this.widget.categoryName}',
                     style: TextStyle(
-                      color: Colors.white,
-                      fontSize: fontSizeM,
+                      color: Color(0xFFFFFCEB),
+                      fontSize: fontSizeHH,
                     ),
                   ),
                 ),

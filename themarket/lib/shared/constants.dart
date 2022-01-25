@@ -12,16 +12,16 @@ const textInputDecoration = InputDecoration(
   ),
   focusedBorder: OutlineInputBorder(
     borderSide: BorderSide(
-      color: Colors.green,
+      color: Color(0xFF000814),
       width: 2.0,
     ),
   ),
 );
 
 // init colors
-const offWhite = Color(0xFFC2B9A7);
-const green = Color(0xFF2E7D32);
-const black = Colors.black;
+const offWhite = Color(0xFFFFFCEB);
+const green = Color(0xFF003566);
+const black = Color(0xFF000814);
 const white = Colors.white;
 const red = Colors.red;
 // init font size
@@ -46,4 +46,4 @@ final btnStyle = ButtonStyle(
 );
 
 // icon size
-const iconSize = 25.0;
+const iconSize = 20.0;
