@@ -1,78 +1,104 @@
 import 'package:flutter/material.dart';
-import 'constants.dart';
+import 'package:provider/provider.dart';
+import 'package:super_market_application/models/cart.dart';
+import 'package:super_market_application/providers/cartProvider.dart';
+import 'package:super_market_application/shared/constants.dart';
 
 // ignore: must_be_immutable
-class CartItem extends StatefulWidget {
-  late String image;
-  late String name;
-  late double price;
-  int quantity;
-  CartItem(this.image, this.name, this.price, this.quantity);
+class CartCard extends StatefulWidget {
+  Cart cart;
+  int index;
+  CartCard(this.cart, this.index);
 
   @override
-  _CartItemState createState() => _CartItemState();
+  _CartCardState createState() => _CartCardState();
 }
 
-class _CartItemState extends State<CartItem> {
+class _CartCardState extends State<CartCard> {
+  String _defaultPrice() {
+    final String defaultPrice = this.widget.cart.price;
+    return defaultPrice;
+  }
+
+  String _price() {
+    String defaultPriceReturn = _defaultPrice();
+    double price = double.parse(defaultPriceReturn) * this.widget.cart.quantity;
+    return price.toString();
+  }
+
+  void _incrementCounter() {
+    setState(() {
+      this.widget.cart.quantity++;
+    });
+  }
+
+  void _decrementCounter() {
+    setState(() {
+      if (this.widget.cart.quantity == 1) return;
+      this.widget.cart.quantity--;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    void _incrementCounter() {
-      setState(() {
-        this.widget.quantity++;
-      });
-    }
-
-    void _decrementCounter() {
-      setState(() {
-        if (this.widget.quantity == 1) return;
-        this.widget.quantity--;
-      });
-    }
-
     return Card(
       elevation: 5.0,
-      color: offWhite,
       child: Row(
         children: [
           Column(
-            //crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                width: MediaQuery.of(context).size.width / 2.5,
-                height: 180,
+                width: MediaQuery.of(context).size.width / 3,
+                height: 200,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/${this.widget.image}'),
-                    fit: BoxFit.cover,
+                    image: NetworkImage(
+                      widget.cart.picture,
+                    ),
+                    fit: BoxFit.fill,
                   ),
                 ),
               ),
             ],
           ),
+          SizedBox(width: 8.0),
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
                       width: 100.0,
                       child: Text(
-                        '${this.widget.name}',
-                        style: TextStyle(
-                          fontSize: fontSizeH,
-                        ),
+                        '${this.widget.cart.name}',
                       ),
                     ),
                     Column(
                       children: [
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Provider.of<CartProviders>(context, listen: false)
+                                .editProducts(
+                              widget.index,
+                              widget.cart.quantity,
+                              this._price(),
+                            );
+                          },
+                          icon: Icon(
+                            Icons.edit_outlined,
+                            color: red,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            Provider.of<CartProviders>(context, listen: false)
+                                .removeProducts(widget.index);
+                          },
                           icon: Icon(
                             Icons.delete_outlined,
                             color: red,
-                            size: iconSize,
                           ),
                         ),
                       ],
@@ -80,14 +106,13 @@ class _CartItemState extends State<CartItem> {
                   ],
                 ),
                 Text(
-                  '${this.widget.price} L.E',
+                  '${this._price()} L.E',
                   style: TextStyle(
-                    color: green,
-                    fontSize: fontSizeM,
+                    color: black,
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(vertical: 15.0),
+                  padding: EdgeInsets.symmetric(vertical: 10.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -102,10 +127,9 @@ class _CartItemState extends State<CartItem> {
                         ),
                       ),
                       Text(
-                        '${this.widget.quantity}',
+                        '${this.widget.cart.quantity}',
                         style: TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w400,
+                          color: red,
                         ),
                       ),
                       IconButton(
@@ -114,7 +138,7 @@ class _CartItemState extends State<CartItem> {
                         },
                         icon: Icon(
                           Icons.add,
-                          color: green,
+                          color: red,
                           size: iconSize,
                         ),
                       ),

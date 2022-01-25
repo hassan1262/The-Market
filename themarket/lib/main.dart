@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:super_market_application/providers/cartProvider.dart';
 import 'package:super_market_application/providers/product_provider.dart';
 import 'package:super_market_application/screens/about.dart';
 import 'package:super_market_application/screens/admin_add_product.dart';
@@ -36,8 +37,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => ProductProviders(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => ProductProviders(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CartProviders(),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Super Market Application',

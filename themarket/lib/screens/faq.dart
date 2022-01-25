@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:super_market_application/shared/app_bar.dart';
-import 'package:super_market_application/shared/rich_text.dart';
 import 'package:super_market_application/shared/side_menu_bar.dart';
-//import 'package:expandable/expandable.dart';
 
 class FAQ extends StatelessWidget {
   const FAQ({Key? key}) : super(key: key);
@@ -31,7 +29,7 @@ class _faq extends State<faq> {
   bool _expanded = false;
   bool _expanded1 = false;
 
-  var _test = "Full Screen";
+  // var _test = "Full Screen";
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -53,10 +51,10 @@ class _faq extends State<faq> {
               body: Column(
                 children: [
                   ListTile(
-                    title: Text('Please consult our customer service desk or reach our customer service on 01xxxx.',
+                    title: Text(
+                        'Please consult our customer service desk or reach our customer service on 01xxxx.',
                         style: TextStyle(color: Color(0xFF000814))),
                   ),
-                  
                 ],
               ),
               isExpanded: _expanded,
@@ -74,7 +72,8 @@ class _faq extends State<faq> {
               body: Column(
                 children: [
                   ListTile(
-                    title: Text('We are very sorry you had a bad experience. Please consult our customer service desk or reach our customer services on16061. We will be happy to listen to you.',
+                    title: Text(
+                        'We are very sorry you had a bad experience. Please consult our customer service desk or reach our customer services on16061. We will be happy to listen to you.',
                         style: TextStyle(color: Color(0xFF000814))),
                   ),
                 ],

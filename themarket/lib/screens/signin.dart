@@ -7,7 +7,6 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 bool islogin = true;
 var email, password;
 
@@ -16,43 +15,28 @@ class SignIn extends StatefulWidget {
   _SignInState createState() => _SignInState();
 }
 
-
 class _SignInState extends State<SignIn> {
   final _formkey = GlobalKey<FormState>();
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  // final FirebaseAuth _auth = FirebaseAuth.instance;
   String phone = '';
   final GoogleSignIn _googleSignIn = GoogleSignIn();
-
-  // setPref(String uid, dynamic email) async {
-  //   try {
-  //     // print('1 $uid');
-  //     SharedPreferences prefs = await SharedPreferences.getInstance();
-  //     await prefs.setString('uid', uid.toString());
-  //     await prefs.setString('email', email.toString());
-  //     // print('2 ${uid.toString()}');
-  //   } catch (e) {
-  //     print('err ${e.toString()}');
-  //   }
-  // }
 
   Future signinWithGoogle() async {
     await _googleSignIn.signOut();
     // hold entered data
-    final GoogleSignInAccount? googleSignInAccount =
-        await _googleSignIn.signIn();
+    // final GoogleSignInAccount? googleSignInAccount =
+    //     await _googleSignIn.signIn();
     // return auth token
-    final GoogleSignInAuthentication googleSignInAuthentication =
-        await googleSignInAccount!.authentication;
-    final AuthCredential authCredential = GoogleAuthProvider.credential(
-        idToken: googleSignInAuthentication.idToken,
-        accessToken:
-            googleSignInAuthentication.accessToken); // access google services
+    // final GoogleSignInAuthentication googleSignInAuthentication =
+    //     await googleSignInAccount!.authentication;
+    // final AuthCredential authCredential = GoogleAuthProvider.credential(
+    //     idToken: googleSignInAuthentication.idToken,
+    //     accessToken:
+    //         googleSignInAuthentication.accessToken); // access google services
 
-    UserCredential? userCredential =
-        await _auth.signInWithCredential(authCredential);
-
-  
+    // UserCredential? userCredential =
+    //     await _auth.signInWithCredential(authCredential);
   }
 
   SignIn() async {
@@ -62,7 +46,13 @@ class _SignInState extends State<SignIn> {
       try {
         UserCredential userCredential = await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email, password: password);
-        return userCredential;
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString('uid', userCredential.user!.uid.toString());
+        await prefs.setString('email', userCredential.user!.email.toString());
+        if (userCredential.user!.email == 'muhammad@gmail.com') {
+          return true;
+        } else
+          return false;
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {
           AwesomeDialog(
@@ -169,13 +159,7 @@ class _SignInState extends State<SignIn> {
                     Row(
                       children: [
                         TextButton(
-                          onPressed: () async {
-                            await Provider.of<ProductProviders>(context,
-                                    listen: false)
-                                .load();
-                            Navigator.pushNamedAndRemoveUntil(
-                                context, '/add_product', (route) => false);
-                          },
+                          onPressed: () async {},
                           child: Text(
                             'Forget Password ?',
                             style: TextStyle(
@@ -192,8 +176,18 @@ class _SignInState extends State<SignIn> {
                     ElevatedButton(
                       onPressed: () async {
                         var check = await SignIn();
-                        if (check != null) {
+                        print(check);
+                        if (check != true) {
                           Navigator.of(context).pushReplacementNamed("/Home");
+                          await Provider.of<ProductProviders>(context,
+                                  listen: false)
+                              .load();
+                        } else if (check == true) {
+                          await Provider.of<ProductProviders>(context,
+                                  listen: false)
+                              .load();
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, '/add_product', (route) => false);
                         }
                       },
                       child: Text(
@@ -228,14 +222,11 @@ class _SignInState extends State<SignIn> {
                 children: [
                   ElevatedButton(
                     onPressed: () async {
-                      try {
-                        await signinWithGoogle();
-                        Navigator.pushNamed(context, '/add_product');
-                      } catch (e) {
+                      try {} catch (e) {
                         print('Error');
                         return null;
                       }
-                        },
+                    },
                     child: Image.asset(
                       'assets/google.png',
                       height: 70,

@@ -27,7 +27,9 @@ class TopBar extends StatelessWidget {
       centerTitle: true,
       actions: [
         IconButton(
-          icon: Icon(Icons.exit_to_app_sharp),
+          icon: Icon(
+            Icons.exit_to_app_sharp,
+          ),
           onPressed: () async {
             Provider.of<ProductProviders>(context, listen: false).destroyList();
             await FirebaseAuth.instance.signOut();

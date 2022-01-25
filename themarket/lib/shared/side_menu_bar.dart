@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:super_market_application/shared/constants.dart';
 
 class SideBar extends StatelessWidget {
   const SideBar();
@@ -7,7 +6,6 @@ class SideBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Color(0xFFFFFCEB),
       child: ListView(
         // Important: Remove any padding from the ListView.
         padding: EdgeInsets.all(0),
@@ -24,9 +22,12 @@ class SideBar extends StatelessWidget {
           ),
           Ink(
             child: ListTile(
-              title: const Text('Home',style: TextStyle(
+              title: const Text(
+                'Home',
+                style: TextStyle(
                   color: Color(0xFFFFFCEB),
-                ),),
+                ),
+              ),
               onTap: () {
                 Navigator.pushNamed(context, '/Home');
               },
@@ -36,9 +37,9 @@ class SideBar extends StatelessWidget {
           Ink(
             child: ListTile(
               title: const Text(
-                'View Profile',style: TextStyle(
+                'View Profile',
+                style: TextStyle(
                   color: Color(0xFFFFFCEB),
-                  
                 ),
               ),
               onTap: () {
@@ -63,9 +64,12 @@ class SideBar extends StatelessWidget {
           ),
           Ink(
             child: ListTile(
-              title: const Text('About Us',style: TextStyle(
+              title: const Text(
+                'About Us',
+                style: TextStyle(
                   color: Color(0xFFFFFCEB),
-                ),),
+                ),
+              ),
               onTap: () {
                 Navigator.pushNamed(context, '/about');
               },
@@ -74,9 +78,12 @@ class SideBar extends StatelessWidget {
           ),
           Ink(
             child: ListTile(
-              title: const Text('FAQs',style: TextStyle(
+              title: const Text(
+                'FAQs',
+                style: TextStyle(
                   color: Color(0xFFFFFCEB),
-                ),),
+                ),
+              ),
               onTap: () {
                 Navigator.pushNamed(context, '/faq');
               },
@@ -85,9 +92,12 @@ class SideBar extends StatelessWidget {
           ),
           Ink(
             child: ListTile(
-              title: const Text('Favorite',style: TextStyle(
+              title: const Text(
+                'Favorite',
+                style: TextStyle(
                   color: Color(0xFFFFFCEB),
-                ),),
+                ),
+              ),
               onTap: () {
                 Navigator.pushNamed(context, '/fav');
               },

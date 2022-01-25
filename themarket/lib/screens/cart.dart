@@ -1,82 +1,124 @@
 import 'package:flutter/material.dart';
-import 'package:super_market_application/shared/app_bar.dart';
+import 'package:provider/provider.dart';
+import 'package:super_market_application/providers/cartProvider.dart';
+import 'package:super_market_application/providers/product_provider.dart';
 import 'package:super_market_application/shared/cart_card.dart';
-import 'package:super_market_application/shared/constants.dart';
-import 'package:super_market_application/shared/side_menu_bar.dart';
 
 // ignore: must_be_immutable
-class Cart extends StatelessWidget {
-  Cart({Key? key}) : super(key: key);
+class Cart extends StatefulWidget {
+  Cart();
+  final double deliveryCharge = 5.0;
+  late bool check;
+  @override
+  _CartState createState() => _CartState();
+}
+
+class _CartState extends State<Cart> {
+  bool showHide() {
+    if (Provider.of<CartProviders>(context, listen: true).totalCartPrice() ==
+        0.0) {
+      this.widget.check = false;
+    } else {
+      this.widget.check = true;
+    }
+    return this.widget.check;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: SideBar(),
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(60.0),
-        child: TopBar('Cart'),
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(5.0),
-        children: [
-          const SizedBox(height: 5.0),
-          CartItem('mango.jpeg', 'Mango', 25.0, 1),
-          CartItem('banana.jpeg', 'Banana', 15.0, 1),
-          CartItem('apple.jpeg', 'Apple', 20.0, 1),
-          const SizedBox(height: 10.0),
-          Container(
-            padding: const EdgeInsets.all(35.0),
-            height: 150,
-            width: double.maxFinite,
-            decoration: BoxDecoration(
-              color: green,
-              borderRadius: BorderRadius.vertical(
-                top: Radius.circular(30.0),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 10.0,
               ),
-            ),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      'Delivery Charge: 10.0 L.E',
-                      style: TextStyle(
-                        color: white,
-                        fontSize: fontSizeS,
-                      ),
+              Expanded(
+                child: Consumer<CartProviders>(
+                  builder: (context, CartProviders cart, child) {
+                    return cart.getProduct.length != 0
+                        ? ListView.builder(
+                            itemCount: cart.getProduct.length,
+                            itemBuilder: (context, index) {
+                              return CartCard(cart.getProduct[index], index);
+                            },
+                          )
+                        : Center(
+                            child: Text(
+                              'Empty Cart',
+                            ),
+                          );
+                  },
+                ),
+              ),
+              Visibility(
+                visible: showHide(),
+                child: Container(
+                  padding: EdgeInsets.all(15.0),
+                  height: 150,
+                  width: double.maxFinite,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(20.0),
                     ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Text(
-                      'Sub Total: 60.0 L.E',
-                      style: TextStyle(
-                        color: white,
-                        fontSize: fontSizeS,
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            'Delivery Charge: ${this.widget.deliveryCharge} L.E',
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 3.0,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Total: 70.0 L.E',
-                      style: TextStyle(
-                        color: white,
-                        fontSize: fontSizeS,
+                      Row(
+                        children: [
+                          Consumer<CartProviders>(
+                            builder: (context, CartProviders cart, child) {
+                              return Text(
+                                'Sub. Total: ${Provider.of<CartProviders>(context, listen: false).totalCartPrice().toString()} L.E',
+                              );
+                            },
+                          )
+                        ],
                       ),
-                    ),
-                  ],
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Consumer<CartProviders>(
+                            builder: (context, CartProviders cart, child) {
+                              return Text(
+                                'Total: ${(Provider.of<CartProviders>(context, listen: false).totalCartPrice() + this.widget.deliveryCharge).toString()} L.E',
+                              );
+                            },
+                          ),
+                          ElevatedButton(
+                            onPressed: () async {
+                              await Provider.of<CartProviders>(context,
+                                      listen: false)
+                                  .checkOut();
+                              Provider.of<CartProviders>(context, listen: false)
+                                  .clearList();
+                              Provider.of<ProductProviders>(context,
+                                      listen: false)
+                                  .destroyList();
+                              Navigator.pushNamed(context, '/Home');
+                            },
+                            child: Text(
+                              'Check out',
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

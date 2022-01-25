@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:super_market_application/models/product.dart';
+import 'package:super_market_application/providers/cartProvider.dart';
 
 import 'constants.dart';
 
@@ -46,7 +48,7 @@ class _ProductItemState extends State<ProductItem> {
                   height: 200,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/logo.png'),
+                      image: NetworkImage(widget.data.picture),
                       fit: BoxFit.fill,
                     ),
                   ),
@@ -96,8 +98,17 @@ class _ProductItemState extends State<ProductItem> {
                                     ),
                                   ),
                                   TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(context, 'Confirm'),
+                                    onPressed: () {
+                                      Provider.of<CartProviders>(context,
+                                              listen: false)
+                                          .addProducts(
+                                              widget.data.picture,
+                                              widget.data.name,
+                                              widget._quantity,
+                                              widget.data.price,
+                                              widget.data.price);
+                                      Navigator.pop(context, 'Confirm');
+                                    },
                                     child: const Text(
                                       'Confirm',
                                       style: TextStyle(
