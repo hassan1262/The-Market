@@ -1,4 +1,4 @@
-# themarket
+# super_market_application
 
 A new Flutter project.
 
